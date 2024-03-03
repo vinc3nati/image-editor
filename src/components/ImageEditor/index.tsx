@@ -5,7 +5,7 @@ import SidebarItem from "./SidebarItem";
 
 type ImageEditorProps = {
   url: string;
-  file: File;
+  file: File | null;
   fileMode: string;
   downloadFlag: boolean;
   setDownload: (value: boolean) => void;
@@ -78,9 +78,9 @@ export default function ImageEditor({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     let img = new Image();
-    setFileName(file.name);
+    setFileName(file?.name as string);
     const reader = new FileReader();
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(file as Blob);
     reader.addEventListener(
       "load",
       () => {
